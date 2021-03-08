@@ -9,7 +9,7 @@ const minurl = "http://localhost:8080/persons";
 //JSON-obj:
 // name, location og birthDate refererer til hvordan vi har skrevet kolonne/attributnavnene i Spring-projektet -
 let person1 = {
-  "name": "Jens Larsen",
+  "name": "Jens-Lars Larsen",
   "location": "Roskilde",
   "birthDate": "2021-02-10"
 }
