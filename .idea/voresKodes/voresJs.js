@@ -33,21 +33,55 @@ function insertPersonIntoDb(){
   body = createJSONPerson(name, location1, birthDate);
   console.log(body);
 
+  /*
+  * Vi laver nogle specifikationer til vores request
+  * */
   const requestOptions = {
    method: 'POST',
    headers: {
-     'Content-Type': 'application/json',
+     'Content-Type': 'application/json', // betyder == vi sender et json i string-format
    },
    body: body
   };
 
+  /* fetch == js-biblio som vi bruger til at sende en request
+  fetch(url, requestOptions) == vi bruger nu fetch til at sende en request til url'en
+    - og denne her url har vi lavet et endpoint på i vores 9.1.person-projekt
+    - endpointet reagerer på en postRequest
+  .then(reponse => reponse.json())
+    - then gør at vi venter til vi har fået respons fra endpointet
+    - response.json == NÅR vi har fået respons --> SÅ lav responset til json
+  .then(data => {console.log("success: ", data);}
+    - den venter på at det er lavet om til json, og så printer den
+
+  vi bruger .then fordi fetch bliver udført asynkront
+    - vi KAN optimere programmets performance ved at ting bliver gjort asynkront,
+      fordi det åbner muligheden for at gøre andre ting mens vi venter på et resultat
+   */
+
   fetch(url, requestOptions)
     .then(reponse => reponse.json())
-    .then(data => {
-      console.log("success: ", data);
-    })
-    .catch(error => {console.log("error: ", error)});
+    .then(data => console.log("succes: ", data))
+    .catch(error => console.log("error: ", error));
+
+  /*
+  * i stedet for de forrige 2 linjer kunne vi også skrive:
+  * .then(console.log)
+  * .catch(console.log);
+  * */
+
+    console.log("Vibe spiser mad");
 }
+
+/*
+* kan skrives på enten function-måden eller på lambda-måden
+* her har vi skrevet det på lambda-måden
+*
+* */
+const metode = (noget) => noget.json;
+
+
+
 /**
  * henter input fra input-felter og gemmer i de rette variabler
  * */
@@ -62,15 +96,20 @@ function retrieveInput(){
  *    p.s. birthDate SKAL angives i American = yyyy-mm-dd
  * */
 function createJSONPerson(name, location, birthDate){
-  // vi laver en javascrip object literal
+  // vi laver et object (JSON-obj er standard obj i js)
   let person = {
     "name": name,
     "location": location,
     "birthDate": birthDate
   };
 
-  // vi laver Javascript obj literal om til JSON
+
+  /* Vi laver JSON om til en String
+     Fordi at body i requestOptions'en skal angives som string
+   */
+
   return JSON.stringify(person);
+
 }
 
 
